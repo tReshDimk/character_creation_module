@@ -148,7 +148,7 @@ def main():
     print('Ты можешь выбрать один из трёх путей силы:')
     print('Воитель, Маг, Лекарь')
     character.select_class()
-    character.start_training()
+    print(character.start_training())
 
 
 if __name__ == '__main__':
