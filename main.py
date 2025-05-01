@@ -2,48 +2,54 @@ from random import randint
 
 
 class Character:
-    def __init__(self, name):
-        self.name = name
-        self.char_class = 'Рядовой'
-        self.description = 'обычный пехотинец'
-        self.description2 = 'персонаж без способностей'
-        self.advantage = ''
-        self.health = 80
-        self.attack_base = 5
-        self.attack_bonus_min = 0
-        self.attack_bonus_max = 0
-        self.defence_base = 10
-        self.defence_bonus_min = 0
-        self.defence_bonus_max = 0
+    """Класс игрового персонажа."""
+
+    def __init__(self, name: str):
+        """Инициализирует игрового персонажа."""
+        self.name: str = name
+        self.char_class: str = 'Рядовой'
+        self.description: str = 'обычный пехотинец'
+        self.description2: str = 'персонаж без способностей'
+        self.advantage: str = ''
+        self.health: int = 80
+        self.attack_base: int = 5
+        self.attack_bonus_min: int = 0
+        self.attack_bonus_max: int = 0
+        self.defence_base: int = 10
+        self.defence_bonus_min: int = 0
+        self.defence_bonus_max: int = 0
         self.special = self.make_nothing
-        self.special_name = '«Посмотрел по сторонам»'
 
     def make_nothing(self):
-        pass
+        """Заглушка для отсутствующего special у персанажа."""
+        print('Ничего не произошло')
 
-    def make_attack(self):
-        bonus_damage = randint(self.attack_bonus_min,
-                               self.attack_bonus_max)
-        total_damage = str(self.attack_base + bonus_damage)
-        action = 'нанёс урон противнику равный'
-        return f'{self.name} {action} {total_damage}'
+    def make_attack(self) -> None:
+        """Выполнить атаку персонажем."""
+        bonus_damage: int = randint(self.attack_bonus_min,
+                                    self.attack_bonus_max)
+        total_damage: str = str(self.attack_base + bonus_damage)
+        action: str = 'нанёс урон противнику равный'
+        print(f'{self.name} {action} {total_damage}')
 
-    def make_defence(self):
-        bonus_defence = randint(self.defence_bonus_min,
-                                self.defence_bonus_max)
-        total_defence = str(self.defence_base + bonus_defence)
-        action = 'блокировал'
-        return f'{self.name} {action} {total_defence} урона'
+    def make_defence(self) -> None:
+        """Осуществить защиту персонажем."""
+        bonus_defence: int = randint(self.defence_bonus_min,
+                                     self.defence_bonus_max)
+        total_defence: str = str(self.defence_base + bonus_defence)
+        action: str = 'блокировал'
+        print(f'{self.name} {action} {total_defence} урона')
 
-    def make_special(self):
+    def make_special(self) -> None:
+        """Выполнить специальную способность персонажем."""
+        print(f'{self.name} применил специальное умение')
         self.special()
-        action = 'применил специальное умение'
         print(f'выносливость: {self.health}',
               f'атака: {self.attack_base}',
               f'защита: {self.defence_base}')
-        return f'{self.name} {action} {self.special_name}'
 
-    def set_warrios_attributes(self):
+    def set_warrios_attributes(self) -> None:
+        """Присвоить персонажу атрибуты воина."""
         self.char_class = 'Воитель'
         self.description = 'дерзкий воин ближнего боя.'
         self.description2 = 'отличный боец ближнего боя'
@@ -53,9 +59,9 @@ class Character:
         self.defence_bonus_min = 5
         self.defence_bonus_max = 10
         self.special = self.add_health
-        self.special_name = '«Выносливость 105»'
 
-    def set_mage_attributes(self):
+    def set_mage_attributes(self) -> None:
+        """Присвоить персонажу атрибуты мага."""
         self.char_class = 'Маг'
         self.description = 'находчивый воин дальнего боя.'
         self.description2 = 'превосходный укротитель стихий'
@@ -65,9 +71,9 @@ class Character:
         self.defence_bonus_min = -2
         self.defence_bonus_max = 2
         self.special = self.add_attack_base
-        self.special_name = '«Атака 45»'
 
-    def set_healer_attributes(self):
+    def set_healer_attributes(self) -> None:
+        """Присвоить персонажу атрибуты лекаря."""
         self.char_class = 'Лекарь'
         self.description = 'могущественный заклинатель.'
         self.description2 = 'чародей, способный исцелять раны'
@@ -77,32 +83,41 @@ class Character:
         self.defence_bonus_min = 2
         self.defence_bonus_max = 5
         self.special = self.add_defence_base
-        self.special_name = '«Защита 40»'
 
-    def add_health(self):
-        self.health += 25
+    def add_health(self) -> None:
+        """Увеличивает выносливость персанажа."""
+        additional_health: int = 25
+        print(f'Выносливость +{additional_health}')
+        self.health += additional_health
 
-    def add_attack_base(self):
-        self.attack_base += 40
+    def add_attack_base(self) -> None:
+        """Увеличивает базовую силу атаки."""
+        additional_attack: int = 40
+        print(f'Атака +{additional_attack}')
+        self.attack_base += additional_attack
 
-    def add_defence_base(self):
-        self.defence_base += 40
+    def add_defence_base(self) -> None:
+        """Увеличивает защиту персонажа."""
+        additional_defence: int = 30
+        print(f'Защита +{additional_defence}')
+        self.defence_base += additional_defence
 
-    def select_class(self):
-        approve_choice = None
+    def select_class(self) -> None:
+        """Выбор класса персонажа."""
+        approve_choice: str = ''
 
-        prompt_choose = ' '.join(['Введи название персонажа,',
-                                  'за которого хочешь играть: \n',
-                                  '    Воитель — warrior,\n',
-                                  '    Маг — mage,\n',
-                                  '    Лекарь — healer: '])
+        prompt_choose: str = ' '.join(['Введи название персонажа,',
+                                       'за которого хочешь играть: \n',
+                                       '    Воитель — warrior,\n',
+                                       '    Маг — mage,\n',
+                                       '    Лекарь — healer: '])
 
-        prompt_approve = ' '.join(['Нажми (Y), чтобы подтвердить выбор, ',
-                                   'или любую другую кнопку, ',
-                                   'чтобы выбрать другого персонажа '])
+        prompt_approve: str = ' '.join(['Нажми (Y), чтобы подтвердить выбор, ',
+                                        'или любую другую кнопку, ',
+                                        'чтобы выбрать другого персонажа '])
 
         while approve_choice != 'y':
-            char_class = input(prompt_choose)
+            char_class: str = input(prompt_choose)
 
             if char_class == 'warrior':
                 self.set_warrios_attributes()
@@ -116,7 +131,8 @@ class Character:
             print(self.char_class, '—', self.description, self.advantage)
             approve_choice = input(prompt_approve).lower()
 
-    def start_training(self):
+    def start_training(self) -> None:
+        """Запуск тренировки персонажа."""
         print(f'{self.name}, ты {self.char_class} — {self.description2}.')
         print('Потренируйся управлять своими навыками.')
         print('Введи одну из команд:\n',
@@ -124,22 +140,22 @@ class Character:
               '    defence — чтобы блокировать атаку противника или\n',
               '    special — чтобы использовать свою суперсилу.')
         print('Если не хочешь тренироваться, введи команду skip.')
-        cmd = None
+        cmd: str = ''
         while cmd != 'skip':
             cmd = input('Введи команду: ')
             if cmd == 'attack':
-                print(self.make_attack())
+                self.make_attack()
             if cmd == 'defence':
-                print(self.make_defence())
+                self.make_defence()
             if cmd == 'special':
-                print(self.make_special())
-        return 'Тренировка окончена.'
+                self.make_special()
+        print('Тренировка окончена.')
 
 
 def main():
     print('Приветствую тебя, искатель приключений!')
     print('Прежде чем начать игру...')
-    char_name = input('...назови себя: ')
+    char_name: str = input('...назови себя: ')
     character = Character(char_name)
     print(f'Здравствуй, {character.name}!',
           f'Сейчас твоя выносливость — {str(character.health)},',
@@ -148,7 +164,7 @@ def main():
     print('Ты можешь выбрать один из трёх путей силы:')
     print('Воитель, Маг, Лекарь')
     character.select_class()
-    print(character.start_training())
+    character.start_training()
 
 
 if __name__ == '__main__':
