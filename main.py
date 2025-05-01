@@ -1,5 +1,7 @@
 from random import randint
 
+from graphic_arts.start_game_banner import run_screensaver
+
 
 class Character:
     """Класс игрового персонажа."""
@@ -153,6 +155,8 @@ class Character:
 
 
 def main():
+    run_screensaver()
+
     print('Приветствую тебя, искатель приключений!')
     print('Прежде чем начать игру...')
     char_name: str = input('...назови себя: ')
