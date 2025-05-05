@@ -159,7 +159,7 @@ def main():
 
     print('Приветствую тебя, искатель приключений!')
     print('Прежде чем начать игру...')
-    char_name: str = input('...назови себя: ')
+    char_name = input('...назови себя: ')
     character = Character(char_name)
     print(f'Здравствуй, {character.name}!',
           f'Сейчас твоя выносливость — {str(character.health)},',
